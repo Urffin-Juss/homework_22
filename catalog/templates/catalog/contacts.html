@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Контакты - TechStore</title>
+
+    <!-- Локальный Bootstrap -->
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'catalog/css/bootstrap.min.css' %}">
+</head>
+<body>
+    <!-- Навигация (такая же как на главной) -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container">
+            <a class="navbar-brand" href="{% url 'catalog:home' %}">
+                <strong>🛒 TechStore</strong>
+            </a>
+            <div class="navbar-nav">
+                <a class="nav-link" href="{% url 'catalog:home' %}">Главная</a>
+                <a class="nav-link active" href="{% url 'catalog:contacts' %}">Контакты</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Заголовок -->
+    <section class="bg-primary text-white py-5">
+        <div class="container">
+            <h1 class="display-5">Контакты</h1>
+            <p class="lead">Свяжитесь с нами любым удобным способом</p>
+        </div>
+    </section>
+
+    <!-- Основной контент -->
+    <div class="container py-5">
+        <div class="row">
+            <!-- Контактная информация -->
+            <div class="col-md-6 mb-4">
+                <h3 class="mb-4">Наши контакты</h3>
+
+                <div class="card mb-3">
+                    <div class="card-body">
+                        <h5>📞 Телефоны</h5>
+                        <ul class="list-unstyled">
+                            <li><strong>Горячая линия:</strong> 8 (800) 123-45-67</li>
+                            <li><strong>Техподдержка:</strong> 8 (495) 765-43-21</li>
+                            <li><strong>Оптовые заказы:</strong> 8 (495) 987-65-43</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="card mb-3">
+                    <div class="card-body">
+                        <h5>📧 Электронная почта</h5>
+                        <ul class="list-unstyled">
+                            <li><strong>Общие вопросы:</strong> info@techstore.ru</li>
+                            <li><strong>Поддержка:</strong> support@techstore.ru</li>
+                            <li><strong>Оптовые заказы:</strong> wholesale@techstore.ru</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-body">
+                        <h5>🏠 Адреса магазинов</h5>
+                        <ul class="list-unstyled">
+                            <li><strong>Москва:</strong> ул. Технологическая, 15</li>
+                            <li><strong>Санкт-Петербург:</strong> Невский пр., 100</li>
+                            <li><strong>Казань:</strong> ул. Кремлёвская, 35</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Форма обратной связи -->
+            <div class="col-md-6">
+                <h3 class="mb-4">Напишите нам</h3>
+
+                <div class="card">
+                    <div class="card-body">
+                        <form>
+                            <div class="mb-3">
+                                <label for="contactName" class="form-label">Ваше имя *</label>
+                                <input type="text" class="form-control" id="contactName" required>
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="contactEmail" class="form-label">Email *</label>
+                                <input type="email" class="form-control" id="contactEmail" required>
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="contactPhone" class="form-label">Телефон</label>
+                                <input type="tel" class="form-control" id="contactPhone">
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="contactTopic" class="form-label">Тема обращения</label>
+                                <select class="form-select" id="contactTopic">
+                                    <option>Общий вопрос</option>
+                                    <option>Техническая поддержка</option>
+                                    <option>Оптовый заказ</option>
+                                    <option>Рекламация</option>
+                                    <option>Сотрудничество</option>
+                                </select>
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="contactMessage" class="form-label">Сообщение *</label>
+                                <textarea class="form-control" id="contactMessage" rows="4" required></textarea>
+                            </div>
+
+                            <button type="submit" class="btn btn-primary">Отправить сообщение</button>
+                        </form>
+                    </div>
+                </div>
+
+                <!-- График работы -->
+                <div class="card mt-4">
+                    <div class="card-body">
+                        <h5>🕒 График работы</h5>
+                        <ul class="list-unstyled">
+                            <li><strong>Пн-Пт:</strong> 9:00 - 21:00</li>
+                            <li><strong>Сб-Вс:</strong> 10:00 - 20:00</li>
+                            <li><strong>Техподдержка:</strong> круглосуточно</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Кнопка возврата -->
+        <div class="text-center mt-5">
+            <a href="{% url 'catalog:home' %}" class="btn btn-outline-secondary">
+                ← Вернуться на главную
+            </a>
+        </div>
+    </div>
+
+    <!-- Футер (упрощенный) -->
+    <footer class="bg-dark text-white py-4">
+        <div class="container text-center">
+            <p>&copy; 2023 TechStore. Страница контактов.</p>
+        </div>
+    </footer>
+</body>
+</html>
