@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Контакты - Мой сайт</title>
+
+    <!-- Подключаем локальный Bootstrap -->
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'catalog/css/bootstrap.min.css' %}">
+</head>
+<body>
+    <!-- Шапка -->
+    <header class="bg-success text-white p-3">
+        <div class="container">
+            <h1>Контактная информация</h1>
+            <p>Свяжитесь со мной</p>
+        </div>
+    </header>
+
+    <!-- Навигация -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container">
+            <a class="navbar-brand" href="#">Контакты</a>
+            <div class="navbar-nav">
+                <a class="nav-link" href="{% url 'catalog:index' %}">Главная</a>
+                <a class="nav-link active" href="{% url 'catalog:contacts' %}">Контакты</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Основной контент -->
+    <main class="container mt-4">
+        <h2 class="mb-4">Мои контакты</h2>
+
+        <div class="row">
+            <!-- Контактная информация -->
+            <div class="col-md-6">
+                <div class="card mb-3">
+                    <div class="card-header bg-info text-white">
+                        <h5>Основные контакты</h5>
+                    </div>
+                    <div class="card-body">
+                        <ul class="list-unstyled">
+                            <li class="mb-2">
+                                <strong>📧 Email:</strong>
+                                <a href="mailto:example@mail.com">example@mail.com</a>
+                            </li>
+                            <li class="mb-2">
+                                <strong>📞 Телефон:</strong> +7 (495) 456-78-90
+                            </li>
+                            <li class="mb-2">
+                                <strong>🏠 Адрес:</strong> г. Москва, ул. Примерная, д. 1
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Форма обратной связи -->
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-header bg-warning">
+                        <h5>Написать сообщение</h5>
+                    </div>
+                    <div class="card-body">
+                        <form>
+                            <div class="mb-3">
+                                <label for="name" class="form-label">Ваше имя</label>
+                                <input type="text" class="form-control" id="name" placeholder="Иван Иванов">
+                            </div>
+                            <div class="mb-3">
+                                <label for="email" class="form-label">Email</label>
+                                <input type="email" class="form-control" id="email" placeholder="name@example.com">
+                            </div>
+                            <div class="mb-3">
+                                <label for="message" class="form-label">Сообщение</label>
+                                <textarea class="form-control" id="message" rows="3"></textarea>
+                            </div>
+                            <button type="submit" class="btn btn-primary">Отправить</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Кнопка возврата -->
+        <div class="mt-4">
+            <a href="{% url 'catalog:index' %}" class="btn btn-outline-secondary">
+                ← Вернуться на главную
+            </a>
+        </div>
+    </main>
+
+    <!-- Подвал -->
+    <footer class="bg-dark text-white p-3 mt-4">
+        <div class="container text-center">
+            <p>Страница контактов</p>
+        </div>
+    </footer>
+</body>
+</html>
