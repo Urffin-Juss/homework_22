@@ -105,7 +105,7 @@
                     <h3 class="product-title">{{ product.name }}</h3>
                     <p class="product-description">{{ product.description_preview }}</p>
                     <div class="product-price">{{ product.price }} руб.</div>
-                    <a href="{% url 'product_detail' product.id %}" class="btn btn-detail">Подробнее</a>
+                    <a href="/product/{{ product.id }}/" class="btn btn-detail">Подробнее</a>
                 </div>
             </div>
             {% endfor %}
