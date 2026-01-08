@@ -1,265 +1,195 @@
+<!-- catalog/templates/catalog/home.html -->
 <!DOCTYPE html>
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>TechStore - Магазин электроники</title>
-
-    <!-- Локальный Bootstrap -->
-    {% load static %}
-    <link rel="stylesheet" href="{% static 'catalog/css/bootstrap.min.css' %}">
-
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ title }}</title>
     <style>
-        /* Свои небольшие стили */
-        .hero-section {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            background-color: #f5f5f5;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        header {
+            background-color: #2c3e50;
             color: white;
-            padding: 100px 0;
+            padding: 20px 0;
+            margin-bottom: 30px;
         }
+
+        .header-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 30px;
+        }
+
         .product-card {
-            transition: transform 0.3s;
-            margin-bottom: 20px;
+            background-color: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
         }
+
         .product-card:hover {
             transform: translateY(-5px);
-            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+            box-shadow: 0 6px 12px rgba(0,0,0,0.15);
         }
-        .category-badge {
-            font-size: 0.8rem;
-            padding: 5px 10px;
+
+        .product-image {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
         }
-        .footer-links a {
-            color: #ddd;
-            text-decoration: none;
+
+        .product-content {
+            padding: 20px;
         }
-        .footer-links a:hover {
+
+        .product-title {
+            font-size: 1.3rem;
+            margin-bottom: 10px;
+            color: #2c3e50;
+        }
+
+        .product-price {
+            font-size: 1.5rem;
+            color: #e74c3c;
+            font-weight: bold;
+            margin: 15px 0;
+        }
+
+        .product-description {
+            color: #666;
+            margin-bottom: 15px;
+            font-size: 0.95rem;
+        }
+
+        .product-category {
+            display: inline-block;
+            background-color: #3498db;
             color: white;
-            text-decoration: underline;
+            padding: 5px 10px;
+            border-radius: 15px;
+            font-size: 0.8rem;
+            margin-bottom: 10px;
+        }
+
+        .btn {
+            display: inline-block;
+            background-color: #2c3e50;
+            color: white;
+            padding: 10px 20px;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+
+        .btn:hover {
+            background-color: #1a252f;
+        }
+
+        .btn-detail {
+            background-color: #27ae60;
+        }
+
+        .btn-detail:hover {
+            background-color: #219653;
+        }
+
+        footer {
+            background-color: #2c3e50;
+            color: white;
+            text-align: center;
+            padding: 20px;
+            margin-top: 50px;
+        }
+
+        .no-image {
+            width: 100%;
+            height: 200px;
+            background-color: #ecf0f1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #7f8c8d;
         }
     </style>
 </head>
 <body>
-    <!-- Навигация -->
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-        <div class="container">
-            <a class="navbar-brand" href="{% url 'catalog:home' %}">
-                <strong>🛒 TechStore</strong>
-            </a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav me-auto">
-                    <li class="nav-item">
-                        <a class="nav-link active" href="{% url 'catalog:home' %}">Главная</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Каталог</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Акции</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{% url 'catalog:contacts' %}">Контакты</a>
-                    </li>
-                </ul>
-
-                <div class="d-flex">
-                    <a href="#" class="btn btn-outline-light me-2">
-                        🛒 Корзина <span class="badge bg-danger">3</span>
-                    </a>
-                    <a href="#" class="btn btn-primary">Войти</a>
-                </div>
+    <header>
+        <div class="header-content">
+            <h1>Интернет-магазин</h1>
+            <div>
+                <a href="/admin/" class="btn">Админ-панель</a>
             </div>
         </div>
-    </nav>
+    </header>
 
-    <!-- Герой-секция -->
-    <section class="hero-section text-center">
-        <div class="container">
-            <h1 class="display-4 mb-4">Новейшая электроника по лучшим ценам</h1>
-            <p class="lead mb-4">Скидка 20% на первую покупку по промокоду WELCOME20</p>
-            <a href="#" class="btn btn-light btn-lg">В каталог →</a>
-        </div>
-    </section>
+    <main class="container">
+        <h2>Наши товары</h2>
+        <p>Всего товаров: {{ products|length }}</p>
 
-    <!-- Популярные категории -->
-    <section class="py-5">
-        <div class="container">
-            <h2 class="text-center mb-5">Популярные категории</h2>
-
-            <div class="row">
-                <div class="col-md-3 mb-4">
-                    <div class="card category-card text-center p-4">
-                        <div class="mb-3">📱</div>
-                        <h5>Смартфоны</h5>
-                        <p class="text-muted">Более 100 моделей</p>
-                    </div>
-                </div>
-                <div class="col-md-3 mb-4">
-                    <div class="card category-card text-center p-4">
-                        <div class="mb-3">💻</div>
-                        <h5>Ноутбуки</h5>
-                        <p class="text-muted">Игровые и рабочие</p>
-                    </div>
-                </div>
-                <div class="col-md-3 mb-4">
-                    <div class="card category-card text-center p-4">
-                        <div class="mb-3">🎧</div>
-                        <h5>Аудио</h5>
-                        <p class="text-muted">Наушники и колонки</p>
-                    </div>
-                </div>
-                <div class="col-md-3 mb-4">
-                    <div class="card category-card text-center p-4">
-                        <div class="mb-3">⌚</div>
-                        <h5>Гаджеты</h5>
-                        <p class="text-muted">Умные часы и фитнес-браслеты</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Товары -->
-    <section class="py-5 bg-light">
-        <div class="container">
-            <h2 class="text-center mb-5">Популярные товары</h2>
-
-            <div class="row">
-                <!-- Товар 1 -->
-                <div class="col-md-3">
-                    <div class="card product-card">
-                        <img src="https://via.placeholder.com/300x200/667eea/ffffff?text=Смартфон"
-                             class="card-img-top" alt="Смартфон">
-                        <div class="card-body">
-                            <span class="badge bg-primary category-badge">Смартфоны</span>
-                            <h5 class="card-title mt-2">iPhone 14 Pro</h5>
-                            <p class="card-text">Новый флагман Apple с динамическим островом</p>
-                            <div class="d-flex justify-content-between align-items-center">
-                                <span class="h5 text-primary">89 990 ₽</span>
-                                <a href="#" class="btn btn-sm btn-outline-primary">В корзину</a>
-                            </div>
+        {% if products %}
+            <div class="product-grid">
+                {% for product in products %}
+                <div class="product-card">
+                    {% if product.image %}
+                        <img src="{{ product.image.url }}" alt="{{ product.name }}" class="product-image">
+                    {% else %}
+                        <div class="no-image">
+                            <span>Нет изображения</span>
                         </div>
+                    {% endif %}
+
+                    <div class="product-content">
+                        <span class="product-category">{{ product.category.name }}</span>
+                        <h3 class="product-title">{{ product.name }}</h3>
+                        <p class="product-description">{{ product.description_preview }}</p>
+                        <div class="product-price">{{ product.price }} руб.</div>
+                        <a href="{% url 'product_detail' product.id %}" class="btn btn-detail">Подробнее</a>
                     </div>
                 </div>
-
-                <!-- Товар 2 -->
-                <div class="col-md-3">
-                    <div class="card product-card">
-                        <img src="https://via.placeholder.com/300x200/764ba2/ffffff?text=Ноутбук"
-                             class="card-img-top" alt="Ноутбук">
-                        <div class="card-body">
-                            <span class="badge bg-success category-badge">Ноутбуки</span>
-                            <h5 class="card-title mt-2">MacBook Air M2</h5>
-                            <p class="card-text">Ультратонкий ноутбук на Apple Silicon</p>
-                            <div class="d-flex justify-content-between align-items-center">
-                                <span class="h5 text-primary">129 990 ₽</span>
-                                <a href="#" class="btn btn-sm btn-outline-primary">В корзину</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Товар 3 -->
-                <div class="col-md-3">
-                    <div class="card product-card">
-                        <img src="https://via.placeholder.com/300x200/f56565/ffffff?text=Наушники"
-                             class="card-img-top" alt="Наушники">
-                        <div class="card-body">
-                            <span class="badge bg-warning category-badge">Аудио</span>
-                            <h5 class="card-title mt-2">Sony WH-1000XM5</h5>
-                            <p class="card-text">Беспроводные наушники с шумоподавлением</p>
-                            <div class="d-flex justify-content-between align-items-center">
-                                <span class="h5 text-primary">34 990 ₽</span>
-                                <a href="#" class="btn btn-sm btn-outline-primary">В корзину</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Товар 4 -->
-                <div class="col-md-3">
-                    <div class="card product-card">
-                        <img src="https://via.placeholder.com/300x200/4299e1/ffffff?text=Часы"
-                             class="card-img-top" alt="Часы">
-                        <div class="card-body">
-                            <span class="badge bg-info category-badge">Гаджеты</span>
-                            <h5 class="card-title mt-2">Apple Watch Series 8</h5>
-                            <p class="card-text">Умные часы для здоровья и спорта</p>
-                            <div class="d-flex justify-content-between align-items-center">
-                                <span class="h5 text-primary">42 990 ₽</span>
-                                <a href="#" class="btn btn-sm btn-outline-primary">В корзину</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                {% endfor %}
             </div>
+        {% else %}
+            <p>Товаров пока нет.</p>
+        {% endif %}
+    </main>
 
-            <div class="text-center mt-4">
-                <a href="#" class="btn btn-primary">Смотреть все товары</a>
-            </div>
-        </div>
-    </section>
-
-    <!-- Преимущества -->
-    <section class="py-5">
-        <div class="container">
-            <div class="row text-center">
-                <div class="col-md-3 mb-4">
-                    <div class="mb-3">🚚</div>
-                    <h5>Бесплатная доставка</h5>
-                    <p class="text-muted">При заказе от 5000 ₽</p>
-                </div>
-                <div class="col-md-3 mb-4">
-                    <div class="mb-3">🔄</div>
-                    <h5>Гарантия возврата</h5>
-                    <p class="text-muted">30 дней на возврат</p>
-                </div>
-                <div class="col-md-3 mb-4">
-                    <div class="mb-3">💳</div>
-                    <h5>Безопасная оплата</h5>
-                    <p class="text-muted">Онлайн и при получении</p>
-                </div>
-                <div class="col-md-3 mb-4">
-                    <div class="mb-3">📞</div>
-                    <h5>Поддержка 24/7</h5>
-                    <p class="text-muted">Помощь в любое время</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Футер -->
-    <footer class="bg-dark text-white py-5">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-4">
-                    <h5>TechStore</h5>
-                    <p>Лучший выбор электроники и гаджетов. Качество, гарантия, отличный сервис.</p>
-                </div>
-                <div class="col-md-4">
-                    <h5>Покупателям</h5>
-                    <div class="footer-links">
-                        <p><a href="#">Доставка и оплата</a></p>
-                        <p><a href="#">Гарантия</a></p>
-                        <p><a href="#">Возврат товара</a></p>
-                        <p><a href="{% url 'catalog:contacts' %}">Контакты</a></p>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <h5>Контакты</h5>
-                    <p>📞 8 (800) 123-45-67</p>
-                    <p>📧 info@techstore.ru</p>
-                    <p>🏠 Москва, ул. Технологическая, 15</p>
-                </div>
-            </div>
-            <hr class="bg-light">
-            <div class="text-center">
-                <p>&copy; 2023 TechStore. Все права защищены.</p>
-            </div>
-        </div>
+    <footer>
+        <p>© 2024 Интернет-магазин. Все права защищены.</p>
+        <p>Django + PostgreSQL</p>
     </footer>
 </body>
 </html>
