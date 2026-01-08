@@ -24,12 +24,12 @@ def contacts(request):
     return render(request, 'catalog/contacts.html')
 
 def product_detail(request, product_id):
-    product = product_id(Product, id=product_id)
+    """Детальная страница товара"""
+    product = get_object_or_404(Product, id=product_id)
     context = {
         'product': product,
-        'title':f'{product.name} - Детали',
-
-        }
+        'title': f'{product.name} - Детали'
+    }
     return render(request, 'catalog/product_detail.html', context)
 
 
