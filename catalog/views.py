@@ -23,11 +23,11 @@ def home(request):
 def contacts(request):
     return render(request, 'catalog/contacts.html')
 
-def product_details(request, product_id):
+def product_detail(request, product_id):
     product = product_id(Product, id=product_id)
     context = {
-        'product': product
-        'title':f'{product.name} - Детали'
+        'product': product,
+        'title':f'{product.name} - Детали',
 
         }
     return render(request, 'catalog/product_detail.html', context)
