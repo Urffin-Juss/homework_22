@@ -27,7 +27,7 @@ def product_details(request, product_id):
     product = product_id(Product, id=product_id)
     context = {
         'product': product
-        'title': f'{product.name} - Детали'
+        'title':f'{product.name} - Детали'
 
         }
     return render(request, 'catalog/product_detail.html', context)
