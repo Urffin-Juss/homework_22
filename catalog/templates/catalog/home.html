@@ -1,0 +1,116 @@
+<!-- catalog/templates/catalog/home.html -->
+{% extends 'catalog/base.html' %}
+
+{% block title %}{{ title }}{% endblock %}
+
+{% block extra_css %}
+    <style>
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 30px;
+        }
+
+        .product-card {
+            background-color: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .product-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+        }
+
+        .product-image {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+
+        .product-content {
+            padding: 20px;
+        }
+
+        .product-title {
+            font-size: 1.3rem;
+            margin-bottom: 10px;
+            color: #2c3e50;
+        }
+
+        .product-price {
+            font-size: 1.5rem;
+            color: #e74c3c;
+            font-weight: bold;
+            margin: 15px 0;
+        }
+
+        .product-description {
+            color: #666;
+            margin-bottom: 15px;
+            font-size: 0.95rem;
+        }
+
+        .product-category {
+            display: inline-block;
+            background-color: #3498db;
+            color: white;
+            padding: 5px 10px;
+            border-radius: 15px;
+            font-size: 0.8rem;
+            margin-bottom: 10px;
+        }
+
+        .btn-detail {
+            background-color: #27ae60;
+        }
+
+        .btn-detail:hover {
+            background-color: #219653;
+        }
+
+        .no-image {
+            width: 100%;
+            height: 200px;
+            background-color: #ecf0f1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #7f8c8d;
+        }
+    </style>
+{% endblock %}
+
+{% block content %}
+    <h2>Наши товары</h2>
+    <p>Всего товаров: {{ products|length }}</p>
+
+    {% if products %}
+        <div class="product-grid">
+            {% for product in products %}
+            <div class="product-card">
+                {% if product.image %}
+                    <img src="{{ product.image.url }}" alt="{{ product.name }}" class="product-image">
+                {% else %}
+                    <div class="no-image">
+                        <span>Нет изображения</span>
+                    </div>
+                {% endif %}
+
+                <div class="product-content">
+                    <span class="product-category">{{ product.category.name }}</span>
+                    <h3 class="product-title">{{ product.name }}</h3>
+                    <p class="product-description">{{ product.description|truncatechars:120 }}</p>
+                    <div class="product-price">{{ product.price }} руб.</div>
+                    <a href="{% url 'catalog:product_detail' product.id %}">Открыть</a>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        <p>Товаров пока нет.</p>
+    {% endif %}
+{% endblock %}
