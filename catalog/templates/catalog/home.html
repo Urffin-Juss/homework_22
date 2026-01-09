@@ -103,9 +103,9 @@
                 <div class="product-content">
                     <span class="product-category">{{ product.category.name }}</span>
                     <h3 class="product-title">{{ product.name }}</h3>
-                    <p class="product-description">{{ product.description_preview }}</p>
+                    <p class="product-description">{{ product.description|truncatechars:120 }}</p>
                     <div class="product-price">{{ product.price }} руб.</div>
-                    <a href="/product/{{ product.id }}/" class="btn btn-detail">Подробнее</a>
+                    <a href="{% url 'catalog:product_detail' product.id %}">Открыть</a>
                 </div>
             </div>
             {% endfor %}
