@@ -26,7 +26,7 @@ class ProductDetailView(DetailView):
     context_object_name = 'product'
     pk_url_kwarg = 'product_id'
 
-        def get_context_data(self, **kwargs):
-            context = super().get_context_data(**kwargs)
-            context["title"] = f"{self.object.name} - Детали"
-            return context
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["title"] = f"{self.object.name} - Детали"
+        return context
