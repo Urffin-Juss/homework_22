@@ -1,5 +1,5 @@
 from django.views.generic import ListView, TemplateView, DetailView
-from . models import import Product
+from .models import Product
 
 
 class HomeView(ListView):
@@ -16,7 +16,7 @@ class HomeView(ListView):
         context['title'] = 'Главная страница'
         return context
 
-    class ContactView(TemplateView):
+    class ContactsView(TemplateView):
         template_name = 'catalog/contacts.html'
 
     class ProductDetailView(DetailView):
