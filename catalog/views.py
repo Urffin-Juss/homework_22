@@ -1,35 +1,32 @@
-from gc import get_objects
-
-from django.shortcuts import render, get_object_or_404
-from catalog.models import Product
+from django.views.generic import ListView, TemplateView, DetailView
+from . models import import Product
 
 
-def home(request):
-    """Главная страница со списком товаров"""
-    products = Product.objects.all()[:12]  # Ограничим 12 товарами
-    for product in products:
-        # Обрезаем описание для превью
-        if product.description and len(product.description) > 100:
-            product.description_preview = product.description[:100] + '...'
-        else:
-            product.description_preview = product.description or ''
+class HomeView(ListView):
 
-    context = {
-        'products': products,
-        'title': 'Главная страница'
-    }
-    return render(request, 'catalog/home.html', context)
+    model = Product
+    template_name = 'catalog/home.html'
+    context_object_name = 'products'
 
-def contacts(request):
-    return render(request, 'catalog/contacts.html')
+    def get_queryset(self):
+        return Product.objects.all()
 
-def product_detail(request, product_id):
-    """Детальная страница товара"""
-    product = get_object_or_404(Product, id=product_id)
-    context = {
-        'product': product,
-        'title': f'{product.name} - Детали'
-    }
-    return render(request, 'catalog/product_detail.html', context)
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['title'] = 'Главная страница'
+        return context
 
+    class ContactView(TemplateView):
+        template_name = 'catalog/contacts.html'
 
+    class ProductDetailView(DetailView):
+
+        model = Product
+        template_name = 'catalog/product_detail.html'
+        context_object_name = 'product'
+        pk_url_kwarg = 'product_id'
+
+        def get_context_data(self, **kwargs):
+            context = super().get_context_data(**kwargs)
+            context["title"] = f"{self.object.name} - Детали"
+            return context
