@@ -21,11 +21,11 @@ class ProductForm(forms.ModelForm):
     class Meta:
         model = Product
 
-    fields = ("name", "description", "image", "category", "price")
+        fields = ("name", "description", "image", "category", "price")
 
-    widgets = {
-        "description": forms.Textarea(attrs={"rows": 5}),
-    }
+        widgets = {
+            "description": forms.Textarea(attrs={"rows": 5}),
+        }
 
 
     def __init__(self, *args, **kwargs):
