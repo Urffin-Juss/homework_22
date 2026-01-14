@@ -1,5 +1,7 @@
-from django.views.generic import ListView, TemplateView, DetailView
+from django.urls import reverse_lazy
+from django.views.generic import ListView, TemplateView, DetailView, CreateView, UpdateView, DeleteView
 from .models import Product
+from .form import ProductForm
 
 
 class HomeView(ListView):
@@ -30,3 +32,27 @@ class ProductDetailView(DetailView):
         context = super().get_context_data(**kwargs)
         context["title"] = f"{self.object.name} - Детали"
         return context
+
+class ProductCreateView(CreateView):
+    model = Product
+    form_class = ProductForm
+    template_name = 'catalog/product_form.html'
+    success_url = reverse_lazy('products:poduct_list')
+
+class ProductListView(ListView):
+    model = Product
+    form_class = ProductForm
+    template_name = 'catalog/product_list.html'
+    context_object_name = 'products'
+
+class ProductUpdateView(UpdateView):
+    model = Product
+    form_class = ProductForm
+    template_name = 'catalog/product_form.html'
+    success_url = reverse_lazy('products:product_list')
+
+class ProductDeleteView(DeleteView):
+    model = Product
+    form_class = ProductForm
+    template_name = 'catalog/product_confir_delet.html'
+    success_url = reverse_lazy('products:product_list')
