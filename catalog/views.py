@@ -22,7 +22,7 @@ class HomeView(ListView):
 class ContactsView(TemplateView):
     template_name = 'catalog/contacts.html'
 
-class ProductDetailView(DetailView, LoginRequiredMixin):
+class ProductDetailView(LoginRequiredMixin, DetailView):
     model = Product
     template_name = 'catalog/product_detail.html'
 
@@ -37,25 +37,25 @@ class ProductDetailView(DetailView, LoginRequiredMixin):
         context["title"] = f"{self.object.name} - Детали"
         return context
 
-class ProductCreateView(CreateView, LoginRequiredMixin):
+class ProductCreateView(LoginRequiredMixin, CreateView):
     model = Product
     form_class = ProductForm
     template_name = 'catalog/product_form.html'
     success_url = reverse_lazy('products:product_list')
 
-class ProductListView(ListView, LoginRequiredMixin):
+class ProductListView(LoginRequiredMixin, ListView):
     model = Product
     form_class = ProductForm
     template_name = 'catalog/product_list.html'
     context_object_name = 'products'
 
-class ProductUpdateView(UpdateView, LoginRequiredMixin):
+class ProductUpdateView(LoginRequiredMixin, UpdateView):
     model = Product
     form_class = ProductForm
     template_name = 'catalog/product_form.html'
     success_url = reverse_lazy('products:product_list')
 
-class ProductDeleteView(DeleteView, LoginRequiredMixin):
+class ProductDeleteView(LoginRequiredMixin, DeleteView):
     model = Product
     form_class = ProductForm
     template_name = 'catalog/product_confirm_delete.html'
