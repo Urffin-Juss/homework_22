@@ -1,0 +1,14 @@
+{% extends 'catalog/base.html' %}
+
+{% block title %}Выход{% endblock %}
+
+{% block content %}
+<div class="container mt-4" style="max-width: 520px;">
+  <h2 class="mb-3">Вы вышли из аккаунта</h2>
+
+  <div class="card card-body">
+    <p class="mb-3">Хотите войти снова?</p>
+    <a class="btn btn-primary" href="{% url 'users:login' %}">Перейти к входу</a>
+  </div>
+</div>
+{% endblock %}
