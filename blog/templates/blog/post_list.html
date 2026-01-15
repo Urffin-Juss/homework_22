@@ -1,0 +1,16 @@
+{% extends "catalog/base.html" %}
+{% block content %}
+<h1>Блог</h1>
+
+<a href="{% url 'blog:post_create' %}">Создать</a>
+<hr>
+
+{% for post in posts %}
+  <div>
+    <h3><a href="{% url 'blog:post_detail' post.pk %}">{{ post.title }}</a></h3>
+    <p>{{ post.content|truncatechars:150 }}</p>
+    <small>Просмотров: {{ post.views_count }}</small>
+  </div>
+  <hr>
+{% endfor %}
+{% endblock %}

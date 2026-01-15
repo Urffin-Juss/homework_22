@@ -1,0 +1,14 @@
+<nav class="container" style="display:flex; gap:12px; margin-bottom: 20px;">
+  <a class="btn" href="{% url 'catalog:home' %}">Главная</a>
+  <a class="btn" href="{% url 'catalog:contacts' %}">Контакты</a>
+
+  <div style="margin-left:auto; display:flex; gap:12px;">
+    {% if user.is_authenticated %}
+      <span style="align-self:center;">Привет, {{ user.username }}!</span>
+      <a class="btn" href="{% url 'users:logout' %}">Выйти</a>
+    {% else %}
+      <a class="btn" href="{% url 'users:login' %}">Вход</a>
+      <a class="btn" href="{% url 'users:register' %}">Регистрация</a>
+    {% endif %}
+  </div>
+</nav>
