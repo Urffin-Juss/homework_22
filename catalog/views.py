@@ -1,3 +1,8 @@
+from gc import get_objects
+
+from django.contrib.auth.decorators import login_required, permission_required
+from django.http import HttpResponse, HttpResponseForbidden
+from django.shortcuts import redirect, render
 from django.urls import reverse_lazy
 from django.views.generic import ListView, TemplateView, DetailView, CreateView, UpdateView, DeleteView
 from .models import Product
@@ -43,11 +48,17 @@ class ProductCreateView(LoginRequiredMixin, CreateView):
     template_name = 'catalog/product_form.html'
     success_url = reverse_lazy('products:product_list')
 
+    def form_valid(self, form):
+        form.instance.user = self.request.user
+        return super().form_valid(form)
+
 class ProductListView(ListView):
     model = Product
     form_class = ProductForm
     template_name = 'catalog/product_list.html'
     context_object_name = 'products'
+
+
 
 class ProductUpdateView(LoginRequiredMixin, UpdateView):
     model = Product
@@ -55,8 +66,42 @@ class ProductUpdateView(LoginRequiredMixin, UpdateView):
     template_name = 'catalog/product_form.html'
     success_url = reverse_lazy('products:product_list')
 
+    def test_func(self):
+        product = self.get.object()
+        return product.owner == self.request.user
+
 class ProductDeleteView(LoginRequiredMixin, DeleteView):
     model = Product
     form_class = ProductForm
     template_name = 'catalog/product_confirm_delete.html'
     success_url = reverse_lazy('products:product_list')
+
+    def test_func(self):
+        product = self.get.object()
+        if product.owner == self.request.user:
+            return True
+        if self.request.user.groups.filter(name='Moderator').exists():
+            return True
+        return False
+
+    def handle_no_permission(self):
+
+        return HttpResponseForbidden("You don't have permission to delete this product.")
+
+
+@login_required
+@permission_required('product.can_unpublishing_product', raise_exception=True)
+def unpublish_product(request, pk):
+    product = get_objects_or_404(Product, pk=pk)
+    product.is_published = False
+    product.save()
+    return redirect('products:product_list')
+
+def product_list(request):
+    products = Product.objects.filter(is_published=True)
+    return render(request, 'catalog/product_list.html', {'products': products})
+
+@login_required
+def my_products(request):
+    products = Product.objects.filter(owner=request.user)
+    return render(request, 'products/my_product.html', {'products': products})

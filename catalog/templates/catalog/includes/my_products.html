@@ -1,0 +1,13 @@
+<h1>Мои продукты</h1>
+<ul>
+{% for product in products %}
+    <li>
+        {{ product.name }} - {{ product.price }}
+        Статус: {% if product.is_published %}Опубликован{% else %}Черновик{% endif %}
+        <a href="{% url 'product_update' product.pk %}">Редактировать</a>
+        <a href="{% url 'product_delete' product.pk %}">Удалить</a>
+    </li>
+{% empty %}
+    <p>У вас нет продуктов</p>
+{% endfor %}
+</ul>
