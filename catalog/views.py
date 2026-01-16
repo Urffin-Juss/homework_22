@@ -30,7 +30,7 @@ class ProductDetailView(LoginRequiredMixin, DetailView):
     template_name = 'catalog/product_detail.html'
     context_object_name = 'product'
     pk_url_kwarg = 'product_id'
-    LoginRequiredMixin = LoginRequiredMixin.as_view()
+
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
