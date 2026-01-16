@@ -1,6 +1,10 @@
+from django.conf import settings
 from django.db import models
 from django.contrib.auth.models import AbstractUser
 from phonenumber_field.modelfields import PhoneNumberField
+
+import users.models
+from config.settings import AUTH_USER_MODEL
 
 
 class CustomUser(AbstractUser):
@@ -10,6 +14,8 @@ class CustomUser(AbstractUser):
     phone_number = PhoneNumberField(max_length=20, unique=True, verbose_name="phone number")
     country = models.CharField(max_length=50, unique=True, verbose_name="country")
     city = models.CharField(max_length=50, unique=True, verbose_name="city")
+    is_published = models.BooleanField(default=False, verbose_name="is published")
+    owner = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, blank=True, null=True)
 
 
     USERNAME_FIELD = 'email'

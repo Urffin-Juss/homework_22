@@ -1,5 +1,6 @@
 # catalog/models.py должен содержать:
 from django.db import models
+from django.contrib.per
 
 
 class Category(models.Model):
@@ -26,6 +27,10 @@ class Product(models.Model):
     class Meta:
         verbose_name = 'Продукт'
         verbose_name_plural = 'Продукты'
+        permissions = [
+            ('can_unpublishing_product', 'Can unpublishing product'),
+
+        ]
 
     def __str__(self):
         return self.name
