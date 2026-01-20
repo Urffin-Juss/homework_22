@@ -118,3 +118,14 @@ LOGIN_URL = 'user/login'
 LOGOUT_REDIRECT_URL = '/'
 
 AUTH_USER_MODEL = 'users.CustomUser'
+
+
+CACHE_ENABLED = True
+if CACHE_ENABLED
+    CACHES = {
+
+    "default": {
+        'BACKEND': "django_redis.cache.RedisCache",
+        "LOCATION": "redis://127.0.0.1:6379/1",
+    }
+}
