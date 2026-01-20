@@ -1,13 +1,15 @@
-from gc import get_objects
+
 
 from django.contrib.auth.decorators import login_required, permission_required
-from django.http import HttpResponse, HttpResponseForbidden
+from django.http import  HttpResponseForbidden
 from django.shortcuts import redirect, render
 from django.urls import reverse_lazy
 from django.views.generic import ListView, TemplateView, DetailView, CreateView, UpdateView, DeleteView
 from .models import Product
 from .form import ProductForm
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.views.decorators.cache import cache_page
+from django.utils.decorators import method_decorator
 
 
 class HomeView(ListView):
@@ -105,3 +107,8 @@ def product_list(request):
 def my_products(request):
     products = Product.objects.filter(owner=request.user)
     return render(request, 'products/my_product.html', {'products': products})
+
+@cache_page(60 * 15)
+def product_detail(request, pk):
+    product = get.objects.get(Product, pk=pk, is_published=True)
+    return render(request, 'catalog/product_detail.html', {'product': product})
