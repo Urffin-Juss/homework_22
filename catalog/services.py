@@ -33,7 +33,7 @@ def get_category_stats():
       from django.db.models import Count, Avg
       stats = Category.objects.annotate(
           product_count=Count('products'),
-          avg_count=Avg('products_count')
+          avg_count=Avg('products_price')
       ).values('name', 'slug', 'products_count', 'avg_price')
 
       stats = list(stats)
