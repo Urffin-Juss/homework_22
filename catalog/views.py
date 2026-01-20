@@ -2,7 +2,7 @@
 
 from django.contrib.auth.decorators import login_required, permission_required
 from django.http import  HttpResponseForbidden
-from django.shortcuts import redirect, render
+from django.shortcuts import redirect, render, get_object_or_404
 from django.urls import reverse_lazy
 from django.views.generic import ListView, TemplateView, DetailView, CreateView, UpdateView, DeleteView
 from .models import Product
@@ -110,5 +110,5 @@ def my_products(request):
 
 @cache_page(60 * 15)
 def product_detail(request, pk):
-    product = get.objects.get(Product, pk=pk, is_published=True)
+    product = get_object_or_404(Product, pk=pk, is_published=True)
     return render(request, 'catalog/product_detail.html', {'product': product})
