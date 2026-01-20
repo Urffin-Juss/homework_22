@@ -12,3 +12,6 @@ sqlparse==0.5.5
 urllib3==2.6.2
 
 django-phonenumber-field
+
+redis==4.5.5
+django-redis==5.2.0
