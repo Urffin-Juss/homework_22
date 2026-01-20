@@ -8,10 +8,10 @@ from .views import HomeView, ContactsView, ProductDetailView, ProductDeleteView,
 
 app_name = 'catalog'
 
-urlpatterns = [
+urlpatterns = {
     path('', HomeView.as_view(), name='home'),
     path('contacts/', ContactsView.as_view(), name='contacts'),
-    path('products/<int:product_id>/', cache_page(60 * 15)(ProductDetailView.as_view()), name='product_detail' ),
+    path('products/<int:product_id>/', cache_page(60 * 15)(ProductDetailView.as_view()), name='product_detail'),
     path('products/', ProductCreateView.as_view(), name='product_create'),
     path('products/<int:product_id>/delete/', ProductDeleteView.as_view(), name='product_delete'),
     path('products/<int:product_id>/update/', ProductUpdateView.as_view(), name='product_update'),
@@ -21,6 +21,4 @@ urlpatterns = [
     path('products/<int:product_id>/delete/', ProductDeleteView.as_view(), name='product_delete'),
     path('products/<int:product_id>/update/', ProductUpdateView.as_view(), name='product_update'),
 
-
-
-]
+}
