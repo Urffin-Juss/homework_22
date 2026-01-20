@@ -7,6 +7,7 @@ from config.settings import AUTH_USER_MODEL
 class Category(models.Model):
     name = models.CharField(max_length=100, verbose_name='Наименование')
     description = models.TextField(verbose_name='Описание', blank=True, null=True)
+    slug = models.SlugField(unique=True, verbose_name='URL', blank=True, null=True)
 
     class Meta:
         verbose_name = 'Категория'
@@ -26,6 +27,15 @@ class Product(models.Model):
     updated_at = models.DateTimeField(auto_now=True, verbose_name='Дата последнего изменения')
     is_published = models.BooleanField(default=False, verbose_name="is published")
     owner = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, blank=True, null=True)
+
+    category = models.ForeignKey(
+        Category,
+        on_delete=models.SET_NULL,
+        blank=True,
+        null=True,
+        related_name='products',
+        verbose_name='category',
+    )
 
     class Meta:
         verbose_name = 'Продукт'

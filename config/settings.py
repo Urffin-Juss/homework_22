@@ -121,7 +121,7 @@ AUTH_USER_MODEL = 'users.CustomUser'
 
 
 CACHE_ENABLED = True
-if CACHE_ENABLED
+if CACHE_ENABLED:
     CACHES = {
 
     "default": {
