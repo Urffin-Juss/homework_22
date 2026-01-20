@@ -1,0 +1,40 @@
+{% extends 'catalog/base.html' %}
+
+{% block title %}Список товаров{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <h1 class="mb-4">Товары</h1>
+
+    {% if products %}
+        <div class="row">
+            {% for product in products %}
+                <div class="col-md-4 mb-4">
+                    <div class="card h-100 shadow-sm">
+                        {% if product.image %}
+                            <img src="{{ product.image.url }}" class="card-img-top" alt="{{ product.name }}">
+                        {% endif %}
+
+                        <div class="card-body">
+                            <h5 class="card-title">{{ product.name }}</h5>
+                            <p class="card-text text-muted">
+                                {{ product.description|truncatechars:100 }}
+                            </p>
+                            <strong>{{ product.price }} ₽</strong>
+                        </div>
+
+                        <div class="card-footer bg-white border-0">
+                            <a href="{% url 'catalog:product_detail' product.pk %}"
+                               class="btn btn-primary w-100">
+                                Подробнее
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        <p>Товары отсутствуют.</p>
+    {% endif %}
+</div>
+{% endblock %}
